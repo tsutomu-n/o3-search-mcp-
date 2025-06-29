@@ -2,32 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
-    "module": "ES2022",
-    "moduleResolution": "bundler",
+    "module": "NodeNext", // ★ ES2022からNodeNextへ変更
+    "moduleResolution": "NodeNext", // ★ nodeからNodeNextへ変更
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": false,
     "outDir": "./build",
     "rootDir": ".",
-    
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "exactOptionalPropertyTypes": true,
-    
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "allowJs": false,
-    "checkJs": false
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["index.ts"],
-  "exclude": ["node_modules", "build", "**/*.test.ts", "**/*.spec.ts"]
+  "exclude": ["node_modules", "build"]
 }

@@ -21,19 +21,27 @@
     "claude",
     "openai",
     "o3",
+    "gemini",
+    "google",
     "chatgpt",
-    "llm"
+    "llm",
+    "ai-search",
+    "web-search"
   ],
   "author": "@yoshiko-pg",
   "license": "MIT",
-  "description": "mcp server for web search by OpenAI o3 model",
+  "description": "MCP server for web search using OpenAI o3 or Google Gemini models",
   "type": "module",
   "packageManager": "pnpm@10.10.0",
   "scripts": {
     "build": "tsc && chmod +x build/index.js",
+    "clean": "rm -rf build",
+    "dev": "node --watch build/index.js",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@google/genai": "^1.7.0",
     "@modelcontextprotocol/sdk": "^1.13.2",
     "minimist": "^1.2.8",
     "openai": "^5.8.1",
