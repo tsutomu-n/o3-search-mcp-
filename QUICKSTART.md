@@ -11,7 +11,16 @@
 
 ### ステップ1: コマンド実行（30秒）
 
-Claude Codeのターミナルで以下を実行：
+<details>
+<summary>📝 方法A: 一行で実行（推奨）</summary>
+
+```bash
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=sk-xxxxxxxxxxxxx -- npx o3-search-mcp
+```
+</details>
+
+<details>
+<summary>📄 方法B: 複数行で実行</summary>
 
 ```bash
 claude mcp add o3-search -s user \
@@ -19,6 +28,7 @@ claude mcp add o3-search -s user \
   -e OPENAI_API_KEY=sk-xxxxxxxxxxxxx \
   -- npx o3-search-mcp
 ```
+</details>
 
 ### ステップ2: 完了！
 
@@ -44,12 +54,25 @@ ls build/index.js  # このファイルが存在すればOK
 ### ステップ2: Claude Desktopの設定（2分）
 
 方法1: コマンドで追加
+
+<details>
+<summary>📝 一行で実行</summary>
+
+```bash
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=sk-xxxxxxxxxxxxx -- node /path/to/o3-search-mcp/build/index.js
+```
+</details>
+
+<details>
+<summary>📄 複数行で実行</summary>
+
 ```bash
 claude mcp add o3-search -s user \
   -e AI_PROVIDER=openai \
   -e OPENAI_API_KEY=sk-xxxxxxxxxxxxx \
   -- node /path/to/o3-search-mcp/build/index.js
 ```
+</details>
 
 方法2: 手動で設定
 1. Claude Desktopを開く

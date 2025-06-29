@@ -42,31 +42,44 @@ Node.jsのバージョン管理ツールです。プロジェクトごとに適�
 
 ## 🏃 クイックスタート（最速30秒）
 
-### Claude Codeの場合
+### 実行方法を選択
+
+<details>
+<summary>🖥️ Claude Codeの場合</summary>
 
 ```bash
-# ターミナルで以下を実行
-claude mcp add o3-search -s user \
-  -e AI_PROVIDER=openai \
-  -e OPENAI_API_KEY=sk-xxxxxxxx \
-  -- npx o3-search-mcp
+# 一行で実行（推奨）
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=sk-xxxxxxxx -- npx o3-search-mcp
 
 # ブラウザタブをリロード（F5）して完了！
 ```
+</details>
 
-### Claude Desktopの場合
+<details>
+<summary>💻 Claude Desktopの場合</summary>
 
 ```bash
-# ターミナルで以下を実行
+# 一行で実行（推奨）
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=sk-xxxxxxxx -- npx o3-search-mcp
+
+# Claude Desktopを再起動して完了！
+```
+</details>
+
+<details>
+<summary>📄 複数行で実行したい場合</summary>
+
+```bash
 claude mcp add o3-search -s user \
   -e AI_PROVIDER=openai \
   -e OPENAI_API_KEY=sk-xxxxxxxx \
   -- npx o3-search-mcp
-
-# Claude Desktopを再起動して完了！
 ```
+</details>
 
-💡 **ヒント**: APIキーを.envファイルで管理したい場合は、下記の「詳細セットアップ」を参照してください。
+💡 **ヒント**: 
+- `sk-xxxxxxxx`を実際のAPIキーに置き換えてください
+- APIキーを.envファイルで管理したい場合は、下記の「.envファイルを使った環境変数管理」を参照してください
 
 ## 📝 詳細セットアップ
 
@@ -123,7 +136,10 @@ claude mcp add o3-search -s user \
 
 ### ステップ3: MCPサーバーを追加
 
-以下のコマンドを実行してMCPサーバーを追加します：
+#### 実行方法を選んでください
+
+<details>
+<summary>📝 方法1: 複数行コマンド（推奨・見やすい）</summary>
 
 ```bash
 # OpenAIを使う場合
@@ -138,10 +154,88 @@ claude mcp add gemini-search -s user \
   -e GEMINI_API_KEY=あなたのAPIキー \
   -- npx o3-search-mcp
 ```
+</details>
+
+<details>
+<summary>➡️ 方法2: 一行コマンド（コピペしやすい）</summary>
+
+```bash
+# OpenAIを使う場合
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=あなたのAPIキー -- npx o3-search-mcp
+
+# Google Geminiを使う場合
+claude mcp add gemini-search -s user -e AI_PROVIDER=gemini -e GEMINI_API_KEY=あなたのAPIキー -- npx o3-search-mcp
+```
+</details>
+
+<details>
+<summary>🔧 方法3: 環境変数を先に設定</summary>
+
+**Mac/Linuxの場合：**
+```bash
+# OpenAIの場合
+export AI_PROVIDER=openai
+export OPENAI_API_KEY=あなたのAPIキー
+claude mcp add o3-search -s user -- npx o3-search-mcp
+
+# Geminiの場合
+export AI_PROVIDER=gemini
+export GEMINI_API_KEY=あなたのAPIキー
+claude mcp add gemini-search -s user -- npx o3-search-mcp
+```
+
+**Windowsコマンドプロンプトの場合：**
+```cmd
+REM OpenAIの場合
+set AI_PROVIDER=openai
+set OPENAI_API_KEY=あなたのAPIキー
+claude mcp add o3-search -s user -- npx o3-search-mcp
+
+REM Geminiの場合
+set AI_PROVIDER=gemini
+set GEMINI_API_KEY=あなたのAPIキー
+claude mcp add gemini-search -s user -- npx o3-search-mcp
+```
+
+**Windows PowerShellの場合：**
+```powershell
+# OpenAIの場合
+$env:AI_PROVIDER="openai"
+$env:OPENAI_API_KEY="あなたのAPIキー"
+claude mcp add o3-search -s user -- npx o3-search-mcp
+
+# Geminiの場合
+$env:AI_PROVIDER="gemini"
+$env:GEMINI_API_KEY="あなたのAPIキー"
+claude mcp add gemini-search -s user -- npx o3-search-mcp
+```
+</details>
+
+<details>
+<summary>🐛 方法4: デバッグ用（段階的実行）</summary>
+
+問題が発生した場合は、一つずつ確認しながら実行：
+
+```bash
+# 1. claudeコマンドの確認
+claude --version
+
+# 2. npxの確認
+npx --version
+
+# 3. 環境変数の確認（設定した場合）
+echo $AI_PROVIDER
+echo $OPENAI_API_KEY
+
+# 4. 最後にMCPサーバーを追加
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=あなたのAPIキー -- npx o3-search-mcp
+```
+</details>
 
 💡 **ポイント**: 
 - 「あなたのAPIキー」の部分を実際のキーに置き換えてください
 - `-s user`はすべてのプロジェクトで使えるようにするオプションです
+- Windowsユーザーは自分の使用しているシェルに合わせて選択してください
 
 ### ステップ4: 動作確認
 
@@ -302,16 +396,42 @@ pnpm clean
 
 プロジェクトのルートに`.env`ファイルを作成：
 
+**OpenAIの場合：**
 ```bash
 # .env
 AI_PROVIDER=openai
 OPENAI_API_KEY=sk-xxxxxxxx
 ```
 
+**Google Geminiの場合：**
+```bash
+# .env
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-key
+```
+
 詳細は「.envファイルを使った環境変数管理」セクションを参照。
 
 ### 方法2: コマンドで直接指定（最も簡単 ⚡）
 
+<details>
+<summary>一行コマンド</summary>
+
+**OpenAI:**
+```bash
+claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=sk-xxxxxxxx -- npx o3-search-mcp
+```
+
+**Google Gemini:**
+```bash
+claude mcp add gemini-search -s user -e AI_PROVIDER=gemini -e GEMINI_API_KEY=your-key -- npx o3-search-mcp
+```
+</details>
+
+<details>
+<summary>複数行コマンド</summary>
+
+**OpenAI:**
 ```bash
 claude mcp add o3-search -s user \
   -e AI_PROVIDER=openai \
@@ -319,15 +439,64 @@ claude mcp add o3-search -s user \
   -- npx o3-search-mcp
 ```
 
+**Google Gemini:**
+```bash
+claude mcp add gemini-search -s user \
+  -e AI_PROVIDER=gemini \
+  -e GEMINI_API_KEY=your-key \
+  -- npx o3-search-mcp
+```
+</details>
+
 ### 方法3: システム環境変数（全アプリで共有）
 
-```bash
-# Mac/Linuxの場合
-export OPENAI_API_KEY=sk-xxxxxxxx
+<details>
+<summary>Mac/Linux</summary>
 
-# Windowsの場合
+**OpenAI:**
+```bash
+export AI_PROVIDER=openai
+export OPENAI_API_KEY=sk-xxxxxxxx
+```
+
+**Google Gemini:**
+```bash
+export AI_PROVIDER=gemini
+export GEMINI_API_KEY=your-key
+```
+</details>
+
+<details>
+<summary>Windows (コマンドプロンプト)</summary>
+
+**OpenAI:**
+```cmd
+set AI_PROVIDER=openai
 set OPENAI_API_KEY=sk-xxxxxxxx
 ```
+
+**Google Gemini:**
+```cmd
+set AI_PROVIDER=gemini
+set GEMINI_API_KEY=your-key
+```
+</details>
+
+<details>
+<summary>Windows (PowerShell)</summary>
+
+**OpenAI:**
+```powershell
+$env:AI_PROVIDER="openai"
+$env:OPENAI_API_KEY="sk-xxxxxxxx"
+```
+
+**Google Gemini:**
+```powershell
+$env:AI_PROVIDER="gemini"
+$env:GEMINI_API_KEY="your-key"
+```
+</details>
 
 ## ⚙️ 詳細設定（任意）
 
@@ -427,6 +596,32 @@ Claude: 検索して最新の情報をお答えします...
 1. **具体的に質問する**: 「最新の」「今日の」「2024年の」など時期を明確に
 2. **検索を促す言葉を使う**: 「調べて」「検索して」「最新情報を教えて」
 3. **複数の情報を組み合わせる**: 「比較して」「まとめて」「違いを教えて」
+
+## 🔍 コマンドの説明
+
+### コマンドの構成要素
+
+```
+claude mcp add [名前] -s [スコープ] -e [環境変数] -- [実行コマンド]
+```
+
+- **`claude mcp add`**: MCPサーバーを追加するコマンド
+- **`[名前]`**: サーバーの識別名（例: `o3-search`）
+- **`-s [スコープ]`**: 
+  - `user`: すべてのプロジェクトで利用可能
+  - `project`: 現在のプロジェクトのみ
+  - `local`: 自分だけ（共有されない）
+- **`-e [環境変数]`**: 環境変数の設定（複数可）
+- **`--`**: オプションとコマンドの区切り
+- **`[実行コマンド]`**: サーバーの実行方法
+
+### バックスラッシュ（\）について
+
+複数行にまたがるコマンドを書く時に使用：
+- Unix/Mac/Linux: そのまま使用可能
+- Windows: 
+  - コマンドプロンプト: `^` を使用
+  - PowerShell: `` ` `` (バッククォート)を使用
 
 ## 🆘 困ったときは
 
