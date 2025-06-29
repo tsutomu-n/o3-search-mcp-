@@ -4,6 +4,10 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import OpenAI from "openai";
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // --- Configuration ---
 const AI_PROVIDER = process.env.AI_PROVIDER || 'openai';

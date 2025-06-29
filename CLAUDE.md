@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an MCP (Model Context Protocol) server that provides web search capabilities using AI models (OpenAI's o3 or Google's Gemini). The server exposes an `ai-search` tool that accepts text queries and returns AI-powered search results.
+This is an MCP (Model Context Protocol) server that provides web search capabilities using AI models (OpenAI's o3 or Google's Gemini). The server exposes an `ai-search` tool that accepts text queries and returns AI-powered search results. Works with both Claude Desktop and Claude Code.
 
 ## Key Commands
 
@@ -29,7 +29,12 @@ Key dependencies:
 
 ## Configuration
 
-The server is configured via environment variables:
+The server is configured via environment variables. These can be set in three ways:
+1. Using a `.env` file in the project root (automatically loaded via dotenv)
+2. Passing them via the `-e` flag when using `claude mcp add`
+3. Setting them as system environment variables
+
+Environment variables:
 - `AI_PROVIDER`: 'openai' or 'gemini' (default: 'openai')
 - `OPENAI_API_KEY`: Required when using OpenAI provider
 - `GEMINI_API_KEY`: Required when using Gemini provider
