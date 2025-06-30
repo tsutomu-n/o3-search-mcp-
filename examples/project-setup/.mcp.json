@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "o3-search": {
+      "command": "npx",
+      "args": ["o3-search-mcp"],
+      "env": {
+        "AI_PROVIDER": "${AI_PROVIDER}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "SEARCH_CONTEXT_SIZE": "${SEARCH_CONTEXT_SIZE}",
+        "REASONING_EFFORT": "${REASONING_EFFORT}"
+      }
+    }
+  }
+}

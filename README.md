@@ -257,29 +257,93 @@ claude mcp add o3-search -s user -e AI_PROVIDER=openai -e OPENAI_API_KEY=あな�
 
 Claudeが最新の情報を検索して答えてくれれば成功です！🎉
 
-## 💻 Claude Code特有の機能
+## 🏢 プロジェクト単位での使用方法
 
-### スコープについて
+### Claude Codeのスコープについて
 
-Claude Codeでは、MCPサーバーを3つのスコープで管理できます：
+MCPサーバーを3つのスコープで管理できます：
 
 1. **User scope** (`-s user`)：すべてのプロジェクトで利用可能
 2. **Project scope** (`-s project`)：現在のプロジェクトでのみ利用、`.mcp.json`で共有
 3. **Local scope** (`-s local`)：自分だけの設定、共有されない
 
-#### プロジェクトで共有する場合
+### 方法1: プロジェクトスコープで追加（推奨）
+
+プロジェクトのルートディレクトリで以下を実行：
 
 ```bash
-# プロジェクトスコープで追加
+# OpenAIの場合
 claude mcp add o3-search -s project \
   -e AI_PROVIDER=openai \
   -e OPENAI_API_KEY='${OPENAI_API_KEY}' \
   -- npx o3-search-mcp
+
+# Geminiの場合
+claude mcp add gemini-search -s project \
+  -e AI_PROVIDER=gemini \
+  -e GEMINI_API_KEY='${GEMINI_API_KEY}' \
+  -- npx o3-search-mcp
 ```
 
-これで`.mcp.json`ファイルが作成され、チームメンバーと設定を共有できます。
+### 方法2: .mcp.jsonを直接作成
 
-**注意**: プロジェクトスコープでは、APIキーを直接書かず環境変数参照（`${OPENAI_API_KEY}`）を使いましょう。
+プロジェクトルートに`.mcp.json`ファイルを作成：
+
+```json
+{
+  "mcpServers": {
+    "o3-search": {
+      "command": "npx",
+      "args": ["o3-search-mcp"],
+      "env": {
+        "AI_PROVIDER": "openai",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      }
+    }
+  }
+}
+```
+
+### プロジェクト用の環境変数管理
+
+#### 1. プロジェクトの.envファイル
+```bash
+# プロジェクトルートに.envを作成
+echo "OPENAI_API_KEY=sk-xxxxxxxx" > .env
+echo "GEMINI_API_KEY=your-key" >> .env
+```
+
+#### 2. チームでの共有方法
+- `.mcp.json`をGitにコミット（APIキーは含まない）
+- `.env`は`.gitignore`に追加
+- `.env.example`を作成してチームに共有
+
+```bash
+# .env.example
+OPENAI_API_KEY=your-openai-key-here
+GEMINI_API_KEY=your-gemini-key-here
+```
+
+### Claude Desktopでプロジェクト単位で使う場合
+
+Claude Desktopでも、ローカルビルドを使用すればプロジェクト単位で管理できます：
+
+```bash
+# プロジェクト内でビルド
+cd /path/to/your/project/o3-search-mcp
+pnpm build
+
+# プロジェクトの.envファイルを使用
+claude mcp add o3-search -s user \
+  -- node ./o3-search-mcp/build/index.js
+```
+
+### メリット
+
+✅ **プロジェクト固有の設定**: 各プロジェクトで異なるAIプロバイダーを使用可能
+✅ **チーム共有**: `.mcp.json`でチーム全体が同じ設定を使用
+✅ **セキュリティ**: APIキーは環境変数で管理、直接コードに含まない
+✅ **バージョン管理**: プロジェクトごとに異なるバージョンのMCPサーバーを使用可能
 
 ## ❓ よくあるトラブルと解決方法
 
